@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="https://pyscript.net/latest/pyscript.css" />
+<script defer src="https://pyscript.net/latest/pyscript.js"></script>
+<title>Stock Prediction Graph</title>
+<style>
+  body {
+    margin: 0;
+    padding: 0;
+    
+    background: linear-gradient(to left, #0E6BA8, #014F86 , #01497C, #013A63, #012A4A);
+    background-image: url('Stock Market Pic.jpg');
+    background-color: rgba(255, 255, 255, 0.046);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    font-family: Arial, sans-serif;
+    color: white;
+  }
+
+  .container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    flex-direction: column;
+    margin-left: -50%;
+  }
+
+  .dropdown {
+    position: relative;
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+  }
+
+  .label-text {
+    margin-right: 10px;
+  }
+
+  input[type="text"] {
+    border-top-left-radius: 20px;
+    border-bottom-left-radius: 20px;
+    padding: 10px;
+    border: 1px solid black;
+    outline: none;
+    flex: 1;
+  }
+
+  .dropdown-button {
+    border: 1px solid black;
+    border-top-right-radius: 20px;
+    border-bottom-right-radius: 20px;
+    background-color: #f9f9f9;
+    padding: 10px 20px;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .dropdown-button::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    right: 10px;
+    width: 0;
+    height: 0;
+    border-left: 8px solid transparent;
+    border-right: 8px solid transparent;
+    border-top: 8px solid black;
+    transform: translateY(-50%);
+  }
+
+  .dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 120px;
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+    z-index: 1;
+    left: calc(100% + 5px);
+    top: 0;
+  }
+
+  .dropdown-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+  }
+
+  .dropdown-content a:hover {
+    background-color: #f1f1f1;
+  }
+
+  .dropdown:hover .dropdown-content {
+    display: block;
+  }
+
+  .second-textbox {
+    display: flex;
+    align-items: center;
+    margin-top: 10px;
+  }
+
+  .second-textbox .label-text {
+    margin-right: 10px;
+  }
+
+  .second-textbox input[type="text"] {
+    border: 1px solid black;
+    outline: none;
+    flex: 1;
+    width: 200px;
+    border-top-right-radius: 20px;
+    border-bottom-right-radius: 20px;
+  }
+
+  .image-container {
+    margin-top: 20px;
+    display: none;
+  }
+
+ 
+
+  .predict-button {
+    margin-top: 20px;
+    margin-left: 10px;
+  }
+</style>
+</head>
+<body>
+
+<div class="container">
+  <div class="dropdown">
+    <div class="label-text">Company :</div>
+    <input id="first-textbox" type="text" placeholder="Enter something...">
+    <div class="dropdown-button"></div>
+    <div class="dropdown-content">
+      <a href="#" onclick="updateText('Infosys')">Infosys</a>
+      <a href="#" onclick="updateText('Reliance')">Reliance</a>
+      <a href="#" onclick="updateText('TCS')">TCS</a>
+      <a href="#" onclick="updateText('ICICI Bank')">ICICI Bank</a>
+    </div>
+  </div>
+  <div class="second-textbox">
+    <div class="label-text">DataSet :</div>
+    <input id="second-textbox" type="text" placeholder="Enter something...">
+  </div>
+  <button class="predict-button" onclick="showImage()">Predict</button>
+  <div class="image-container" id="image-container" style="float:right;margin-right: -800px;">
+    <img src="" alt="Image" style="float:right;margin-right: -400px;background-color: rgba(255, 255, 255, 0.395); padding: 30px 50px; width: 450px;" height=300px width=350px>
+  </div>
+</div>
+
+<script>
+var options = ["Reliance", "Infosys", "TCS", "ICICI Bank"];
+var images = ["Reliance graph.jpg", "Infosys graph.jpg", "TCS graph.jpg", "ICICI Graph.jpg "];
+
+function updateText(option) {
+  var index = options.indexOf(option);
+  document.getElementById('first-textbox').value = option;
+  document.getElementById('second-textbox').value = option.toLowerCase() + '.csv';
+}
+
+function showImage() {
+  var selectedOption = document.getElementById('first-textbox').value;
+  var index = options.indexOf(selectedOption);
+  var imageContainer = document.getElementById('image-container');
+  var image = imageContainer.querySelector('img');
+  if (index >= 0 && index < images.length) {
+    image.src = images[index];
+    imageContainer.style.display = 'block';
+  } else {
+    imageContainer.style.display = 'none';
+  }
+}
+</script>
+</body>
+</html>
